@@ -423,6 +423,18 @@
 	padding: 10px 0;
 
 	.main-menu {
+		text-align: center;
+
+		> nav > ul,
+		> ul {
+			margin-bottom: 0;
+			padding: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-wrap: nowrap;
+		}
+
 		ul {
 			margin-bottom: 0;
 
@@ -430,10 +442,24 @@
 				position: relative;
 				list-style: none;
 				display: inline-block;
-				margin-inline-end: 50px;
+				margin-inline-end: 34px;
+				white-space: nowrap;
+				flex-shrink: 0;
+
+				@include breakpoint (max-xl4) {
+					margin-inline-end: 28px;
+				}
+
+				@include breakpoint (max-xxxl) {
+					margin-inline-end: 22px;
+				}
 
 				@include breakpoint (max-xl) {
-					margin-inline-end: 30px;
+					margin-inline-end: 16px;
+				}
+
+				@include breakpoint (max-lg) {
+					margin-inline-end: 12px;
 				}
 	
 			&:last-child {
@@ -442,14 +468,23 @@
 	
 			a {
 				display: inline-block;
-				font-size: 16px;
+				font-size: 14.5px;
 				font-weight: 500;
 				color: rgba(212, 212, 212, 1);
 				padding: 20px 0;
 				text-align: left;
 				position: relative;
 				text-transform: capitalize;
+				white-space: nowrap;
 				@include transition;
+
+				@include breakpoint (min-xxxl) {
+					font-size: 15px;
+				}
+
+				@include breakpoint (max-xl) {
+					font-size: 13.5px;
+				}
 
 				i {
 					margin-left: 4px;
@@ -747,7 +782,7 @@
             form {
                 width: 100%;
                 position: relative;
-				width: 300px;
+				width: 240px;
         
                 input {
                     background-color: transparent;
@@ -853,7 +888,21 @@
 
         .header-left {
 			@include flex;
-			gap: 150px;
+			flex: 1;
+			min-width: 0;
+			gap: 30px;
+
+			.logo {
+				flex-shrink: 0;
+			}
+
+			.mean__menu-wrapper {
+				flex: 1;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				min-width: 0;
+			}
 
             .header-logo-2 {
                 display: none;
@@ -869,10 +918,24 @@
 		.header-main {
 			.header-left {
 				@include flex;
-				gap: 410px;
+				flex: 1;
+				min-width: 0;
+				gap: 25px;
 
 				@include breakpoint (max-xxxl) {
-					gap: 90px;
+					gap: 20px;
+				}
+
+				.logo {
+					flex-shrink: 0;
+				}
+
+				.mean__menu-wrapper {
+					flex: 1;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					min-width: 0;
 				}
 
 				.main-menu {
