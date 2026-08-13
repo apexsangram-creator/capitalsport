@@ -936,6 +936,15 @@
        Banner Active Js Start
     ================================ */
 
+        $('.hero-2').each(function () {
+            if ($(this).find('.hero-backdrop').length === 0) {
+                var imgSrc = $(this).find('.hero-image > img').attr('src');
+                if (imgSrc) {
+                    $(this).prepend('<div class="hero-backdrop" style="background-image: url(\'' + imgSrc + '\');"></div>');
+                }
+            }
+        });
+
         if ($('.banner-active').length > 0) {
             const bannerActive = new Swiper(".banner-active", {
                 speed: 1500,
