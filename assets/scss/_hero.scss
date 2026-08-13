@@ -1,11 +1,11 @@
 
 
 .hero-2 {
-    background-color: #EBEBEB;
+    background-color: #111827;
+    background: linear-gradient(135deg, #0b0f19 0%, #111827 50%, #182234 100%);
     padding: 150px 0;
     overflow: hidden;
     position: relative;
-    overflow: hidden;
 
     @include breakpoint (max-md){
         padding: 140px 0;
@@ -51,9 +51,10 @@
 
         span {
             display: inline-block;
-            letter-spacing: 0.16em;
+            letter-spacing: 0.18em;
             text-transform: uppercase;
-            color: #121212;
+            color: #D4AF37;
+            font-weight: 700;
             margin-bottom: 15px;
         }
 
@@ -61,6 +62,7 @@
             font-weight: bold;
             font-size: 92px;
             text-transform: capitalize;
+            color: #F8F8FB;
 
             @include breakpoint (max-xl){
                 font-size: 70px;
@@ -81,15 +83,17 @@
             }
 
             b {
-                -webkit-text-stroke-width: 1.5px;
-                -webkit-text-stroke-color: rgba(18, 18, 18, 0.8);
-                color: transparent;
+                color: #D4AF37;
+                -webkit-text-stroke: unset;
+                background: linear-gradient(135deg, #F3D078 0%, #D4AF37 50%, #B88E28 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
             }
         }
 
         p {
             max-width: 500px;
-            color: #424242;
+            color: #C5C5C5;
             margin-top: 30px;
 
              @include breakpoint (max-lg){
@@ -108,17 +112,23 @@
             text-align: center;
         }
          .theme-btn {
-            background-color: transparent;
-            border: 1px solid $header-color;
-            color: $header-color;
+            background-color: #D4AF37;
+            background: linear-gradient(135deg, #F3D078 0%, #D4AF37 100%);
+            border: 1px solid #D4AF37;
+            color: #111827;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            box-shadow: 0 4px 18px rgba(212, 175, 55, 0.35);
+            border-radius: 4px;
            
             &::before, &::after {
-                background-color: $theme-color-2;
+                background-color: #F8F8FB;
             }
 
             &:hover {
-                color: $header-color;
-                border: 1px solid $theme-color-2;
+                color: #111827;
+                border: 1px solid #F8F8FB;
+                box-shadow: 0 6px 24px rgba(212, 175, 55, 0.55);
             }
         }
     }
@@ -130,10 +140,18 @@
         transform: translateX(150px);
         margin-left: 100px;
 
+        > img {
+            border-radius: 16px;
+            border: 1.5px solid rgba(212, 175, 55, 0.5);
+            box-shadow: 0 14px 38px rgba(0, 0, 0, 0.6), 0 0 25px rgba(212, 175, 55, 0.2);
+            overflow: hidden;
+            display: block;
+        }
+
         @include breakpoint (max-xxxl){
             margin-left: 0;
 
-            img {
+            > img {
                 width: 100%;
             }
         }
@@ -189,15 +207,17 @@
             height: 48px;
             line-height: 48px;
             text-align: center;
-            border-radius: 0;
-            background-color: $white;
-            color: $header-color;
+            border-radius: 4px;
+            background-color: #111827;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            color: #D4AF37;
             @include transition;
             font-size: 18px;
 
             &:hover {
-                background-color: $theme-color-2;
-                color: $header-color;
+                background-color: #D4AF37;
+                color: #111827;
+                box-shadow: 0 0 15px rgba(212, 175, 55, 0.45);
             }
         }
 
@@ -206,15 +226,17 @@
             height: 48px;
             line-height: 48px;
             text-align: center;
-            border-radius: 0;
-            background-color: $white;
-            color: $header-color;
+            border-radius: 4px;
+            background-color: #111827;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            color: #D4AF37;
             @include transition;
             font-size: 18px;
 
             &:hover {
-                background-color: $theme-color-2;
-                color: $header-color;
+                background-color: #D4AF37;
+                color: #111827;
+                box-shadow: 0 0 15px rgba(212, 175, 55, 0.45);
             }
         }
     }
