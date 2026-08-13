@@ -1038,17 +1038,16 @@
         }
 
         const boxes = document.querySelectorAll('.color-box');
-        if (!boxes.length) return;
+        if (boxes.length && !document.body.classList.contains('color-box-init')) {
+            document.body.classList.add('color-box-init');
 
-        if (document.body.classList.contains('color-box-init')) return;
-        document.body.classList.add('color-box-init');
-
-        boxes.forEach(box => {
-            box.addEventListener('click', function () {
-                boxes.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
+            boxes.forEach(box => {
+                box.addEventListener('click', function () {
+                    boxes.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                });
             });
-        });
+        }
 
         // Range & Input Elements
         const minRange = document.getElementById('min-range');
@@ -1057,45 +1056,132 @@
         const maxInput = document.getElementById('max-input');
 
         // Safety check (ThemeForest best practice)
-        if (!minRange || !maxRange || !minInput || !maxInput) return;
+        if (minRange && maxRange && minInput && maxInput) {
+            // ===============================
+            // Slider → Input Sync
+            // ===============================
+            minRange.addEventListener('input', function () {
+                let minVal = parseInt(minRange.value, 10);
+                let maxVal = parseInt(maxRange.value, 10);
 
-        // ===============================
-        // Slider → Input Sync
-        // ===============================
-        minRange.addEventListener('input', function () {
-            let minVal = parseInt(minRange.value, 10);
-            let maxVal = parseInt(maxRange.value, 10);
+                if (minVal > maxVal) {
+                    minVal = maxVal;
+                    minRange.value = minVal;
+                }
+                minInput.value = minVal;
+            });
 
-            if (minVal > maxVal) {
-                minVal = maxVal;
-                minRange.value = minVal;
+            maxRange.addEventListener('input', function () {
+                let minVal = parseInt(minRange.value, 10);
+                let maxVal = parseInt(maxRange.value, 10);
+
+                if (maxVal < minVal) {
+                    maxVal = minVal;
+                    maxRange.value = maxVal;
+                }
+                maxInput.value = maxVal;
+            });
+
+            // ===============================
+            // Input → Slider Sync
+            // ===============================
+            minInput.addEventListener('input', function () {
+                let val = parseInt(minInput.value, 10);
+                if (!isNaN(val)) minRange.value = val;
+            });
+
+            maxInput.addEventListener('input', function () {
+                let val = parseInt(maxInput.value, 10);
+                if (!isNaN(val)) maxRange.value = val;
+            });
+        }
+
+        /* ================================
+           Video Viewport Autoplay Js Start
+        ================================ */
+        const autoPlayVideos = document.querySelectorAll('.shop-collection-image video, .collection-video, .product-day-image video');
+
+        if (autoPlayVideos.length > 0) {
+            const playVideoSafely = (video) => {
+                video.muted = true;
+                const playPromise = video.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        const wrapper = video.closest('.shop-collection-image');
+                        if (wrapper) wrapper.classList.add('playing');
+                    }).catch(() => {
+                        // Autoplay prevented by browser
+                    });
+                }
+            };
+
+            const pauseVideoSafely = (video) => {
+                video.pause();
+                const wrapper = video.closest('.shop-collection-image');
+                if (wrapper) wrapper.classList.remove('playing');
+            };
+
+            if ('IntersectionObserver' in window) {
+                const videoObserver = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        const video = entry.target;
+                        if (entry.isIntersecting) {
+                            playVideoSafely(video);
+                        } else {
+                            pauseVideoSafely(video);
+                        }
+                    });
+                }, {
+                    root: null,
+                    threshold: 0.25
+                });
+
+                autoPlayVideos.forEach((video) => {
+                    videoObserver.observe(video);
+                });
+            } else {
+                const checkVideoVisibility = () => {
+                    autoPlayVideos.forEach((video) => {
+                        const rect = video.getBoundingClientRect();
+                        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+                        const isVisible = rect.top < windowHeight && rect.bottom > 0;
+
+                        if (isVisible) {
+                            playVideoSafely(video);
+                        } else {
+                            pauseVideoSafely(video);
+                        }
+                    });
+                };
+
+                window.addEventListener('scroll', checkVideoVisibility, { passive: true });
+                window.addEventListener('resize', checkVideoVisibility);
+                checkVideoVisibility();
             }
-            minInput.value = minVal;
-        });
 
-        maxRange.addEventListener('input', function () {
-            let minVal = parseInt(minRange.value, 10);
-            let maxVal = parseInt(maxRange.value, 10);
+            $('.shop-collection-image').each(function () {
+                const $wrapper = $(this);
+                const $video = $wrapper.find('video');
+                const $btn = $wrapper.find('.video-play-btn');
 
-            if (maxVal < minVal) {
-                maxVal = minVal;
-                maxRange.value = maxVal;
-            }
-            maxInput.value = maxVal;
-        });
+                if ($video.length) {
+                    const videoEl = $video[0];
 
-        // ===============================
-        // Input → Slider Sync
-        // ===============================
-        minInput.addEventListener('input', function () {
-            let val = parseInt(minInput.value, 10);
-            if (!isNaN(val)) minRange.value = val;
-        });
+                    const togglePlay = () => {
+                        if (videoEl.paused) {
+                            playVideoSafely(videoEl);
+                        } else {
+                            pauseVideoSafely(videoEl);
+                        }
+                    };
 
-        maxInput.addEventListener('input', function () {
-            let val = parseInt(maxInput.value, 10);
-            if (!isNaN(val)) maxRange.value = val;
-        });
+                    if ($btn.length) {
+                        $btn.on('click', togglePlay);
+                    }
+                    $video.on('click', togglePlay);
+                }
+            });
+        }
 
 
 
