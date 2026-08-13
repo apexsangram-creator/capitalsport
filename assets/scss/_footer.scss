@@ -496,9 +496,9 @@
     .footer-right-items {
         .download-box-items {
             border: 1px solid #2E2E2E;
-            padding: 30px;
+            padding: 24px 30px;
             @include flex;
-            justify-content: space-between;
+            justify-content: center;
             margin-bottom: 30px;
 
             @include breakpoint (max-md){

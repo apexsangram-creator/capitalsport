@@ -947,18 +947,17 @@
 
         if ($('.banner-active').length > 0) {
             const bannerActive = new Swiper(".banner-active", {
-                speed: 1500,
+                speed: 800,
                 loop: true,
                 slidesPerView: 1,
                 effect: 'fade',
-                autoplay: {
-                    delay: 3000,
-                    disableOnInteraction: false,
-                    pauseOnMouseEnter: false,
+                fadeEffect: {
+                    crossFade: true
                 },
+                autoplay: false,
                 navigation: {
-                    nextEl: ".array-prev",
-                    prevEl: ".array-next",
+                    nextEl: ".array-next",
+                    prevEl: ".array-prev",
                 },
                 pagination: {
                     el: ".hero-dot",
