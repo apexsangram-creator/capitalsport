@@ -285,18 +285,26 @@
     .array-button {
         position: absolute;
         top: 50%;
-        transform: translateY(58%);
+        transform: translateY(-50%);
         left: 30px;
         z-index: 99;
         @include flex;
         right: 30px;
         justify-content: space-between;
         @include transition;
-        opacity: 0;
-        visibility: hidden;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: none;
+
+        button {
+            pointer-events: auto;
+            cursor: pointer;
+        }
 
         @include breakpoint (max-xl){
-            display: none;
+            display: flex;
+            left: 15px;
+            right: 15px;
         }
 
         .array-prev {
@@ -305,16 +313,18 @@
             line-height: 48px;
             text-align: center;
             border-radius: 4px;
-            background-color: #111827;
-            border: 1px solid rgba(212, 175, 55, 0.4);
+            background-color: rgba(17, 24, 39, 0.85);
+            border: 1px solid rgba(212, 175, 55, 0.5);
             color: #D4AF37;
             @include transition;
             font-size: 18px;
+            backdrop-filter: blur(8px);
 
             &:hover {
                 background-color: #D4AF37;
                 color: #111827;
-                box-shadow: 0 0 15px rgba(212, 175, 55, 0.45);
+                box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
+                transform: scale(1.08);
             }
         }
 
@@ -324,16 +334,18 @@
             line-height: 48px;
             text-align: center;
             border-radius: 4px;
-            background-color: #111827;
-            border: 1px solid rgba(212, 175, 55, 0.4);
+            background-color: rgba(17, 24, 39, 0.85);
+            border: 1px solid rgba(212, 175, 55, 0.5);
             color: #D4AF37;
             @include transition;
             font-size: 18px;
+            backdrop-filter: blur(8px);
 
             &:hover {
                 background-color: #D4AF37;
                 color: #111827;
-                box-shadow: 0 0 15px rgba(212, 175, 55, 0.45);
+                box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
+                transform: scale(1.08);
             }
         }
     }
